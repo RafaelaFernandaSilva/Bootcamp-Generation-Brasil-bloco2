@@ -1,0 +1,88 @@
+---------------criando banco de dados------------------------
+CREATE SCHEMA `db_pizzaria_legal` DEFAULT CHARACTER SET utf8 ;
+
+--------------escolhendo o banco de dados-------------------
+
+USE db_pizzaria_legal;
+
+--------Criando tabela de categoria, com as colunas------------ 
+
+CREATE TABLE `db_pizzaria_legal`.`tb_categoria` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `descricao` VARCHAR(45) NOT NULL,
+  `tamanho` VARCHAR(45) NOT NULL,
+  `data_criacao` DATE NOT NULL,
+  PRIMARY KEY (`id`));
+----------------------------------------------------------
+
+---------Criando tabela pizza, com as colunas--------
+
+CREATE TABLE db_pizzaria_legal.tb_pizza (
+    id INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(45) NOT NULL,
+    caracteristica VARCHAR(45) NOT NULL,
+    borda VARCHAR(45) NOT NULL,
+    data_criacao DATE NOT NULL,
+    quantidade_fatias INT NOT NULL,
+    valor INT NOT NULL,
+    id_categoria INT NOT NULL,
+    PRIMARY KEY (id)
+);
+-------------Foi feito a forenkey----------------
+
+ALTER TABLE `db_pizzaria_legal`.`tb_pizza` 
+ADD INDEX `fk_categoria_idx` (`id_categoria` ASC) VISIBLE;
+;
+ALTER TABLE `db_pizzaria_legal`.`tb_pizza` 
+ADD CONSTRAINT `fk_categoria`
+  FOREIGN KEY (`id_categoria`)
+  REFERENCES `db_pizzaria_legal`.`tb_categoria` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+-----------Criando as categorias-----------------------
+
+INSERT INTO `db_pizzaria_legal`.`tb_categoria` (`descricao`, `tamanho`, `data_criacao`) VALUES ('doce', 'pequena', '2021-01-01');
+INSERT INTO `db_pizzaria_legal`.`tb_categoria` (`descricao`, `tamanho`, `data_criacao`) VALUES ('salgada', 'grande', '2021-01-01');
+INSERT INTO `db_pizzaria_legal`.`tb_categoria` (`descricao`, `tamanho`, `data_criacao`) VALUES ('vegetariana', 'media', '2021-01-01');
+INSERT INTO `db_pizzaria_legal`.`tb_categoria` (`descricao`, `tamanho`, `data_criacao`) VALUES ('salgada', 'pequena', '2021-01-01');
+INSERT INTO `db_pizzaria_legal`.`tb_categoria` (`descricao`, `tamanho`, `data_criacao`) VALUES ('doce', 'grande', '2021-01-01');
+
+----------Criando pizza---------------------
+INSERT INTO `db_pizzaria_legal`.`tb_pizza` (`nome`, `caracteristica`, `borda`, `data_criacao`, `quantidade_fatias`, `valor`, `id_categoria`) VALUES ('portuguesa', 'carne e vegetais', 'sim', '2021-01-01', '7', '45', '2');
+INSERT INTO `db_pizzaria_legal`.`tb_pizza` (`nome`, `caracteristica`, `borda`, `data_criacao`, `quantidade_fatias`, `valor`, `id_categoria`) VALUES ('doce de leite e bacon', 'doce', 'sim', '2021-01-01', '8', '60', '5');
+INSERT INTO `db_pizzaria_legal`.`tb_pizza` (`nome`, `caracteristica`, `borda`, `data_criacao`, `quantidade_fatias`, `valor`, `id_categoria`) VALUES ('brocolis', 'vegetais', 'sim', '2021-01-01', '5', '70', '3');
+INSERT INTO `db_pizzaria_legal`.`tb_pizza` (`nome`, `caracteristica`, `borda`, `data_criacao`, `quantidade_fatias`, `valor`, `id_categoria`) VALUES ('bacon e banana', 'carne', 'sim', '2021-01-01', '6', '80', '4');
+INSERT INTO `db_pizzaria_legal`.`tb_pizza` (`nome`, `caracteristica`, `borda`, `data_criacao`, `quantidade_fatias`, `valor`, `id_categoria`) VALUES ('banana', 'fruta', 'sim', '2021-01-01', '5', '50', '5');
+INSERT INTO `db_pizzaria_legal`.`tb_pizza` (`nome`, `caracteristica`, `borda`, `data_criacao`, `quantidade_fatias`, `valor`, `id_categoria`) VALUES ('calabresa', 'carne', 'não', '2021-01-01', '5', '100', '2');
+INSERT INTO `db_pizzaria_legal`.`tb_pizza` (`nome`, `caracteristica`, `borda`, `data_criacao`, `quantidade_fatias`, `valor`, `id_categoria`) VALUES ('queijo', 'vegetariana', 'sim', '2021-01-1', '6', '90', '3');
+INSERT INTO `db_pizzaria_legal`.`tb_pizza` (`nome`, `caracteristica`, `borda`, `data_criacao`, `quantidade_fatias`, `valor`, `id_categoria`) VALUES ('milho', 'vegetariana', 'sim', '2021-01-01', '7', '55', '3');
+
+
+------------------Select tb pizza where valor maior que 45--------
+SELECT * FROM db_pizzaria_legal.tb_pizza WHERE valor> 45;
+
+--------------------------------------------------------------------------
+----------------Select tb pizza where valor entre 1000 and 2000-----
+
+SELECT * FROM db_pizzaria_legal.tb_pizza WHERE valor >= 29 AND valor <= 60;
+--------------------------------------------------------------------------
+
+----------------Select like pizza que começa com C--------------
+
+SELECT * FROM tb_pizza WHERE nome LIKE 'C%'
+--------------------------------------------------------------------
+----------Select inner join-----------------------------------------
+
+SELECT  *
+FROM tb_pizza
+INNER JOIN tb_categoria ON tb_categoria.id = tb_pizza.id_categoria;
+------------------------------------------------------------------
+----------------Select categoria1-----------------------
+SELECT  * 
+FROM tb_pizza
+INNER JOIN tb_categoria ON tb_categoria.id = tb_pizza.id_categoria 
+WHERE tb_categoria.id = 1;
+----------------------------------------------------------------
+
+

@@ -1,0 +1,46 @@
+--------------------Criando banco----------------------------
+
+  CREATE SCHEMA `sistema_rh` DEFAULT CHARACTER SET utf8 ;
+------------------------------------------------------------
+
+-------------Escolhendo o banco de dados-------------------- 
+
+                 use sistema_rh
+
+------------Criando tabela funcionaries--------------------
+
+CREATE TABLE `sistema_rh`.`tb_funcionaries` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  `cpf` VARCHAR(11) NOT NULL,
+  `cargo` VARCHAR(45) NOT NULL,
+  `salario` DECIMAL(10,2) NOT NULL,
+  `data_contratacao` DATE NOT NULL,
+  PRIMARY KEY (`id`))
+COMMENT = 'Tabela do sistema de RH para o cadastro do funcionarios.';
+------------------------------------------------------------
+
+------------------Populando tabela-------------------------- 
+
+INSERT INTO `sistema_rh`.`tb_funcionaries` (`nome`, `cpf`, `cargo`, `salario`, `data_contratacao`) VALUES ('Paulo', '11111111111', 'Dev PLeno', '5000.00', '2020-01-01');
+INSERT INTO `sistema_rh`.`tb_funcionaries` (`nome`, `cpf`, `cargo`, `salario`, `data_contratacao`) VALUES ('Camila', '22222222222', 'Dev junior', '3000.00', '2021-01-01');
+INSERT INTO `sistema_rh`.`tb_funcionaries` (`nome`, `cpf`, `cargo`, `salario`, `data_contratacao`) VALUES ('João', '33333333333', 'Estagiario', '1000.00', '2020-02-01');
+INSERT INTO `sistema_rh`.`tb_funcionaries` (`nome`, `cpf`, `cargo`, `salario`, `data_contratacao`) VALUES ('Jose', '44444444444', 'Dev senior', '9000.00', '2021-01-01');
+INSERT INTO `sistema_rh`.`tb_funcionaries` (`nome`, `cpf`, `cargo`, `salario`, `data_contratacao`) VALUES ('Carolina', '55555555555', 'Dev junior', '3000.00', '2019-01-01');
+-----------------------------------------------------------
+
+ ----Busca todas as informações da tabela funcionaries.---
+   SELECT * FROM sistema_rh.tb_funcionaries; 
+-----------------------------------------------------------
+
+------------Busca salario  maior que 2000------------------
+SELECT * FROM sistema_rh.tb_funcionaries WHERE salario > 2000.00;
+-----------------------------------------------------------
+
+-----------Busca salario  menor que 2000-------------------
+SELECT * FROM sistema_rh.tb_funcionaries WHERE salario < 2000.00;
+-----------------------------------------------------------
+----------Atualizando dado na tabela funcionario-----------
+
+UPDATE sistema_rh.tb_funcionaries SET salario = 2000.00 WHERE (id = 3);
+----------------------------------------------------------

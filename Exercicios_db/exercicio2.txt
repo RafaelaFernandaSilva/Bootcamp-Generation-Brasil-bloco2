@@ -1,0 +1,47 @@
+--------------Criando o banco de dados-----------------
+ CREATE SCHEMA `db_ecommerce` DEFAULT CHARACTER SET utf8 ;
+-------------------------------------------------------
+
+--------------Selecionar o banco-----------------------
+           USE db_ecommerce;
+-------------------------------------------------------
+
+--------------Criação da tabela----------------------- 
+
+CREATE TABLE `db_ecommerce`.`tb_produtos` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  `marca` VARCHAR(45) NOT NULL,
+  `peso` VARCHAR(45),
+  `cor`  VARCHAR(45)  NOT NULL,
+  `data_cadastro` DATE NOT NULL,
+   `preco` DECIMAL(10,2) NOT NULL,
+    `tamanho` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+COMMENT = 'Tabela de produtos ';
+----------------------------------------------------
+
+--------------Populando tabela---------------------- 
+
+INSERT INTO `db_ecommerce`.`tb_produtos` (`nome`, `marca`, `cor`, `data_cadastro`, `preco`, `tamanho`) VALUES ('Bota', 'nike', 'azul', '2020-01-01', '50.00', 'medio');
+INSERT INTO `db_ecommerce`.`tb_produtos` (`nome`, `marca`, `cor`, `data_cadastro`, `preco`, `tamanho`) VALUES ('Bota G', 'nike', 'azul', '2020-01-01', '50.00', 'grande');
+INSERT INTO `db_ecommerce`.`tb_produtos` (`nome`, `marca`, `cor`, `data_cadastro`, `preco`, `tamanho`) VALUES ('Blusa', 'nike', 'rosa', '2021-01-01', '70.00', 'grande');
+INSERT INTO `db_ecommerce`.`tb_produtos` (`nome`, `marca`, `cor`, `data_cadastro`, `preco`, `tamanho`) VALUES ('Tenis', 'nike', 'branco', '2021-02-01', '80.00', 'grande');
+INSERT INTO `db_ecommerce`.`tb_produtos` (`nome`, `marca`, `cor`, `data_cadastro`, `preco`, `tamanho`) VALUES ('Saia', 'morena rosa', 'preto', '2021-01-01', '40.00', 'pequeno');
+INSERT INTO `db_ecommerce`.`tb_produtos` (`nome`, `marca`, `cor`, `data_cadastro`, `preco`, `tamanho`) VALUES ('Bicicleta', 'puma', 'verde', '2021-03-01', '1500.00', 'grande');
+INSERT INTO `db_ecommerce`.`tb_produtos` (`nome`, `marca`, `cor`, `data_cadastro`, `preco`, `tamanho`) VALUES ('Celular', 'nokia','azul', '2020-03-01', '3000.00', 'medio');
+INSERT INTO `db_ecommerce`.`tb_produtos` (`nome`, `marca`, `peso`, `cor`, `data_cadastro`, `preco`, `tamanho`) VALUES ('Caixa de som', 'nokia', '200g','azul', '2021-03-10', '4000.00', 'medio');
+----------------------------------------------------
+-----Buscar valor (preço) maior que 500 reais.------
+
+SELECT * FROM db_ecommerce.tb_produtos WHERE preco > 500.00;
+---------------------------------------------------
+
+-------Buscar valor(preço) menor que 500 reais.---
+SELECT * FROM db_ecommerce.tb_produtos WHERE preco < 500.00;
+--------------------------------------------------
+
+-----------Atualizar um dado--------------------
+UPDATE db_ecommerce.tb_produtos SET preco = 70.00 WHERE id = 3;
+
+-----------------------------------------------

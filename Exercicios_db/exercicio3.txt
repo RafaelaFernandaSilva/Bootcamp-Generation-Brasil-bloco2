@@ -1,0 +1,49 @@
+-------------------------Criação de banco de dados -------------------------
+
+          CREATE SCHEMA `db_escola` DEFAULT CHARACTER SET utf8 ;
+----------------------------------------------------------------------------
+
+--------------------Escolhendo o banco de dados ----------------------------
+
+                        use db_escola
+----------------------------------------------------------------------------
+
+----------------------Criação tabela alunos---------------------------------
+
+ CREATE TABLE `db_escola`.`tb_alunes` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  `cpf` VARCHAR(11) NOT NULL,
+  `turma` VARCHAR(45) NOT NULL,
+  `nota` DECIMAL(10,2) NOT NULL,
+  `data_matricula` DATE NOT NULL,
+  PRIMARY KEY (`id`))
+COMMENT = 'Tabela alunes';
+---------------------------------------------------------------------------
+
+--------------------------Popular tabela-----------------------------------
+
+INSERT INTO `db_escola`.`tb_alunes` (`nome`, `cpf`, `turma`, `nota`, `data_matricula`) VALUES ('Fernanda', '22222222222', '3', '10', '2019-01-01');
+INSERT INTO `db_escola`.`tb_alunes` (`nome`, `cpf`, `turma`, `nota`, `data_matricula`) VALUES ('João', '33333333333', '4', '8', '2021-01-10');
+INSERT INTO `db_escola`.`tb_alunes` (`nome`, `cpf`, `turma`, `nota`, `data_matricula`) VALUES ('JP', '44444444444', '5', '6', '2019-03-12');
+INSERT INTO `db_escola`.`tb_alunes` (`nome`, `cpf`, `turma`, `nota`, `data_matricula`) VALUES ('Camila', '55555555555', '4', '4', '2019-03-12');
+INSERT INTO `db_escola`.`tb_alunes` (`nome`, `cpf`, `turma`, `nota`, `data_matricula`) VALUES ('Pedro', '66666666666', '4', '7', '2020-01-01');
+INSERT INTO `db_escola`.`tb_alunes` (`nome`, `cpf`, `turma`, `nota`, `data_matricula`) VALUES ('Juliana', '77777777777', '5', '3', '2020-01-10');
+INSERT INTO `db_escola`.`tb_alunes` (`nome`, `cpf`, `turma`, `nota`, `data_matricula`) VALUES ('Paulo', '88888888888', '5', '10', '2020-01-01');
+INSERT INTO `db_escola`.`tb_alunes` (`nome`, `cpf`, `turma`, `nota`, `data_matricula`) VALUES ('Rafaela', '99999999999', '5', '9', '2020-01-01');
+--------------------------------------------------------------------------
+
+-----------------Buscando as maiores notas que 7--------------------------
+
+        SELECT * FROM db_escola.tb_alunes WHERE nota > 7;
+--------------------------------------------------------------------------
+
+---------------Buscando as notas menores que 7----------------------------
+
+       SELECT * FROM db_escola.tb_alunes WHERE nota < 7;
+--------------------------------------------------------------------------
+
+-----------------Atualizar dados tabela alunes---------------------------- 
+
+     UPDATE db_escola.tb_alunes SET nota = 10.0 WHERE (id = 4);
+--------------------------------------------------------------------------

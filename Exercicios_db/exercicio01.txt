@@ -1,0 +1,88 @@
+---------------criando banco de dados------------------------
+CREATE SCHEMA `db_generation_game_online` DEFAULT CHARACTER SET utf8 ;
+
+--------------escolhendo o banco de dados-------------------
+
+USE db_generation_game_online;
+
+--------Criando tabela de classe, com as colunas------------ 
+
+CREATE TABLE `db_generation_game_online`.`tb_classe` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `descricao` VARCHAR(45) NOT NULL,
+  `nivel` VARCHAR(45) NOT NULL,
+  `data_criacao` DATE NOT NULL,
+  PRIMARY KEY (`id`));
+----------------------------------------------------------
+
+---------Criando tabela personagem, com as colunas--------
+
+CREATE TABLE db_generation_game_online.tb_personagem (
+    id INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(45) NOT NULL,
+    caracteristica VARCHAR(45) NOT NULL,
+    fantasia VARCHAR(45) NOT NULL,
+    data_criacao DATE NOT NULL,
+    ataque INT NOT NULL,
+    defesa INT NOT NULL,
+    id_classe INT NOT NULL,
+    PRIMARY KEY (id)
+);
+-------------Foi feito a forenkey----------------
+
+ALTER TABLE `db_generation_game_online`.`tb_personagem` 
+ADD INDEX `fk_classes_idx` (`id_classe` ASC) VISIBLE;
+;
+ALTER TABLE `db_generation_game_online`.`tb_personagem` 
+ADD CONSTRAINT `fk_classes`
+  FOREIGN KEY (`id_classe`)
+  REFERENCES `db_generation_game_online`.`tb_classe` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+-----------Criando as classes-----------------------
+
+INSERT INTO `db_generation_game_online`.`tb_classe` (`descricao`, `nivel`, `data_criacao`) VALUES ('Arqueiro', 'iniciante ', '2020-01-01');
+INSERT INTO `db_generation_game_online`.`tb_classe` (`descricao`, `nivel`, `data_criacao`) VALUES ('Ferreiro', 'intermediario ', '2021-01-01');
+INSERT INTO `db_generation_game_online`.`tb_classe` (`descricao`, `nivel`, `data_criacao`) VALUES ('Cavaleiro', 'avançado', '2019-01-01');
+INSERT INTO `db_generation_game_online`.`tb_classe` (`descricao`, `nivel`, `data_criacao`) VALUES ('Feiticeiro', 'avançado', '2019-02-02');
+INSERT INTO `db_generation_game_online`.`tb_classe` (`descricao`, `nivel`, `data_criacao`) VALUES ('Rei ', 'avançado', '2019-03-03');
+
+----------Criando personagem---------------------
+
+INSERT INTO `db_generation_game_online`.`tb_personagem` (`nome`, `caracteristica`, `fantasia`, `data_criacao`, `id_classe`, `ataque`, `defesa`) VALUES ('Mario', 'joga flecha', 'verde', '2021-01-01', '1', '3000', '2000');
+INSERT INTO `db_generation_game_online`.`tb_personagem` (`nome`, `caracteristica`, `fantasia`, `data_criacao`, `id_classe`, `ataque`, `defesa`) VALUES ('Jose', 'usa ferro', 'marrom ', '2021-01-01', '2', '200', '300');
+INSERT INTO `db_generation_game_online`.`tb_personagem` (`nome`, `caracteristica`, `fantasia`, `data_criacao`, `id_classe`, `ataque`, `defesa`) VALUES ('João', 'anda a cavalo', 'branco', '2021-01-01', '3', '3000', '5000');
+INSERT INTO `db_generation_game_online`.`tb_personagem` (`nome`, `caracteristica`, `fantasia`, `data_criacao`, `id_classe`, `ataque`, `defesa`) VALUES ('Jordana', 'faz bruxaria', 'verde agua', '2021-01-01', '4', '5000', '5000');
+INSERT INTO `db_generation_game_online`.`tb_personagem` (`nome`, `caracteristica`, `fantasia`, `data_criacao`, `id_classe`, `ataque`, `defesa`) VALUES ('Artur', 'reina ', 'azul', '2021-01-01', '5', '6000', '7000');
+INSERT INTO `db_generation_game_online`.`tb_personagem` (`nome`, `caracteristica`, `fantasia`, `data_criacao`, `id_classe`, `ataque`, `defesa`) VALUES ('Maria', 'joga flecha', 'rosa', '2021-02-02', '1', '3000', '3000');
+INSERT INTO `db_generation_game_online`.`tb_personagem` (`nome`, `caracteristica`, `fantasia`, `data_criacao`, `id_classe`, `ataque`, `defesa`) VALUES ('Gabriel', 'usa ferro', 'marrom', '2021-02-02', '2', '3000', '3000');
+INSERT INTO `db_generation_game_online`.`tb_personagem` (`nome`, `caracteristica`, `fantasia`, `data_criacao`, `id_classe`, `ataque`, `defesa`) VALUES ('Talles', 'anda a cavalo', 'branco', '2021-03-03', '3', '3000', '3000');
+
+------------------Select tb personagem where ataque maior que 2000--------
+SELECT * FROM db_generation_game_online.tb_personagem WHERE ataque > 2000;
+
+--------------------------------------------------------------------------
+----------------Select tb personagem where defesa entre 1000 and 2000-----
+
+SELECT * FROM db_generation_game_online.tb_personagem WHERE defesa >= 1000 AND defesa <= 2000;
+--------------------------------------------------------------------------
+
+----------------Select like personagem que começa com C--------------
+
+SELECT * FROM tb_personagem WHERE nome LIKE 'C%'
+--------------------------------------------------------------------
+----------Select inner join-----------------------------------------
+
+SELECT  *
+FROM tb_personagem
+INNER JOIN tb_classe ON tb_classe.id = tb_personagem.id_classe;
+------------------------------------------------------------------
+----------------Select personagem arqueiro-----------------------
+SELECT  * 
+FROM tb_personagem
+INNER JOIN tb_classe ON tb_classe.id = tb_personagem.id_classe 
+WHERE tb_classe.id = 1;
+----------------------------------------------------------------
+
+

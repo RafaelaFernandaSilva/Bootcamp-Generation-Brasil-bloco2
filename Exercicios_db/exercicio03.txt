@@ -1,0 +1,89 @@
+---------------criando banco de dados------------------------
+CREATE SCHEMA `db_farmacia_do_bem` DEFAULT CHARACTER SET utf8 ;
+
+--------------escolhendo o banco de dados-------------------
+
+USE db_farmacia_do_bem;
+
+--------Criando tabela categoria, com as colunas------------ 
+
+CREATE TABLE `db_farmacia_do_bem`.`tb_categoria` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  `descricao` VARCHAR(45) NOT NULL,
+  `data_criacao` DATE NOT NULL,
+  PRIMARY KEY (`id`));
+----------------------------------------------------------
+
+---------Criando tabela produto, com as colunas--------
+
+CREATE TABLE db_farmacia_do_bem.tb_produto  (
+    id INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(45) NOT NULL,
+    caracteristica VARCHAR(45) NOT NULL,
+    tipo VARCHAR(45) NOT NULL,
+    data_criacao DATE NOT NULL,
+    uso VARCHAR NOT NULL,
+    valor INT NOT NULL,
+    id_categoria INT NOT NULL,
+    PRIMARY KEY (id)
+);
+-------------Foi feito a forenkey----------------
+
+ALTER TABLE `db_farmacia_do_bem`.`tb_produto` 
+ADD INDEX `fk_categoria_idx` (`id_categoria` ASC) VISIBLE;
+;
+ALTER TABLE `db_farmacia_do_bem`.`tb_produto` 
+ADD CONSTRAINT `fk_categoria`
+  FOREIGN KEY (`id_categoria`)
+  REFERENCES `db_farmacia_do_bem`.`tb_categoria` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+-----------Criando as categoria-----------------------
+
+INSERT INTO `db_farmacia_do_bem`.`tb_categoria` (`nome`, `descricao`, `data_criacao`) VALUES ('comprimido', 'solido', '2021-01-01');
+INSERT INTO `db_farmacia_do_bem`.`tb_categoria` (`nome`, `descricao`, `data_criacao`) VALUES ('xarope', 'liquido', '2021-01-01');
+INSERT INTO `db_farmacia_do_bem`.`tb_categoria` (`nome`, `descricao`, `data_criacao`) VALUES ('conta gota', 'liquido', '2021-01-01');
+INSERT INTO `db_farmacia_do_bem`.`tb_categoria` (`nome`, `descricao`, `data_criacao`) VALUES ('sache', 'pó', '2021-01-01');
+INSERT INTO `db_farmacia_do_bem`.`tb_categoria` (`nome`, `descricao`, `data_criacao`) VALUES ('injeção', 'liquido', '2021-01-01');
+
+
+----------Criando produto---------------------
+INSERT INTO `db_farmacia_do_bem`.`tb_produto` (`nome`, `caracteristica`, `tipo`, `data_criacao`, `uso`, `valor`, `id_categoria`) VALUES ('dipirona', 'gota', 'liquido', '2021-01-01', 'dorcabeça', '20', '3');
+INSERT INTO `db_farmacia_do_bem`.`tb_produto` (`nome`, `caracteristica`, `tipo`, `data_criacao`, `uso`, `valor`, `id_categoria`) VALUES ('xarope mel', 'mel', 'liquido', '2021-01-01', 'dor garganta', '30', '2');
+INSERT INTO `db_farmacia_do_bem`.`tb_produto` (`nome`, `caracteristica`, `tipo`, `data_criacao`, `uso`, `valor`, `id_categoria`) VALUES ('nelsaldina', 'ruim ', 'solido', '2021-01-01', 'dor cabeça', '40', '1');
+INSERT INTO `db_farmacia_do_bem`.`tb_produto` (`nome`, `caracteristica`, `tipo`, `data_criacao`, `uso`, `valor`, `id_categoria`) VALUES ('aspirina', 'ruim', 'solido', '2021-01-01', 'dor cabeça', '40', '1');
+INSERT INTO `db_farmacia_do_bem`.`tb_produto` (`nome`, `caracteristica`, `tipo`, `data_criacao`, `uso`, `valor`, `id_categoria`) VALUES ('concepcional', 'ruim', 'solido', '2021-01-01', 'gravidez', '60', '1');
+INSERT INTO `db_farmacia_do_bem`.`tb_produto` (`nome`, `caracteristica`, `tipo`, `data_criacao`, `uso`, `valor`, `id_categoria`) VALUES ('chá gripal', 'bom', 'pó', '2021-01-01', 'gripe', '10', '4');
+INSERT INTO `db_farmacia_do_bem`.`tb_produto` (`nome`, `caracteristica`, `tipo`, `data_criacao`, `uso`, `valor`, `id_categoria`) VALUES ('ineção covid', 'bom', 'liquido', '2021-01-01', 'covid ', '150', '5');
+INSERT INTO `db_farmacia_do_bem`.`tb_produto` (`nome`, `caracteristica`, `tipo`, `data_criacao`, `uso`, `valor`, `id_categoria`) VALUES ('injoção gripe', 'bom', 'liquido', '2021-01-01', 'gripe', '100', '5');
+
+
+------------------Select tb produto where valor maior que 45--------
+SELECT * FROM db_farmacia_do_bem.tb_produto  WHERE valor> 50;
+
+--------------------------------------------------------------------------
+----------------Select tb produto where valor entre 1000 and 2000-----
+
+SELECT * FROM db_farmacia_do_bem.tb_produto  WHERE valor >= 3 AND valor <= 60;
+--------------------------------------------------------------------------
+
+----------------Select like produto que começa com b--------------
+
+SELECT * FROM tb_produto  WHERE nome LIKE 'B%';
+--------------------------------------------------------------------
+----------Select inner join-----------------------------------------
+
+SELECT  *
+FROM tb_produto 
+INNER JOIN tb_categoria ON tb_categoria.id = tb_produto .id_categoria;
+------------------------------------------------------------------
+----------------Select categoria1-----------------------
+SELECT  * 
+FROM tb_produto 
+INNER JOIN tb_categoria ON tb_categoria.id = tb_produto .id_categoria 
+WHERE tb_categoria.id = 1;
+----------------------------------------------------------------
+
+
